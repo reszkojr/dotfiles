@@ -1,0 +1,14 @@
+snippet djmodel "Django Model" b
+class ${1:ModelName}(models.Model):
+    ${2:field} = models.${3:CharField}(max_length=${4:100})
+endsnippet
+
+snippet djview "Django View" b
+from django.views import View
+from django.http import HttpResponse
+
+class ${1:MyView}(View):
+    def get(self, request):
+        return HttpResponse("${2:Hello, world!}")
+endsnippet
+
