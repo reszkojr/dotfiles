@@ -15,7 +15,12 @@ vim.o.undofile = true
 vim.o.undodir = '~/.nvim/undo'
 
 vim.api.nvim_create_autocmd("VimEnter", {
-	callback = function()
-		require("nvim-tree.api").tree.close()
-	end,
+    callback = function()
+        require("nvim-tree.api").tree.close()
+    end,
+})
+
+vim.api.nvim_create_autocmd({ "BufLeave", "FocusLost" }, {
+    pattern = "*",
+    command = "silent! wall",
 })

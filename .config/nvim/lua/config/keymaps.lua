@@ -20,37 +20,38 @@ map("n", "<Esc>", ":nohlsearch<CR>", { silent = true })
 
 -- formatter
 vim.keymap.set("n", "<leader>f", function()
-	require("conform").format({ async = true, lsp_fallback = true })
+    require("conform").format({ async = true, lsp_fallback = true })
 end, { desc = "Formatar com Conform" })
 
 vim.keymap.set("v", "<leader>f", function()
-	require("conform").format({
-		async = true,
-		lsp_fallback = true,
-		range = {
-			start = vim.api.nvim_buf_get_mark(0, "<"),
-			["end"] = vim.api.nvim_buf_get_mark(0, ">"),
-		},
-	})
+    require("conform").format({
+        async = true,
+        lsp_fallback = true,
+        range = {
+            start = vim.api.nvim_buf_get_mark(0, "<"),
+            ["end"] = vim.api.nvim_buf_get_mark(0, ">"),
+        },
+    })
 end, { desc = "Format using Conform" })
 
 -- Telescope
-local builtin = require("telescope.builtin")
+local telescope_builtin = require("telescope.builtin")
 
-map("n", "<leader>ff", builtin.find_files, { desc = "Search files" })
-map("n", "<leader>fg", builtin.live_grep, { desc = "Search text" })
-map("n", "<leader>fb", builtin.buffers, { desc = "Search open files" })
+map("n", "<leader>ff", telescope_builtin.find_files, { desc = "Search files" })
+map("n", "<leader>fg", telescope_builtin.live_grep, { desc = "Search text" })
+map("n", "<leader>fb", telescope_builtin.buffers, { desc = "Search open files" })
 map("n", "<leader>fe", ":Telescope file_browser<CR>", { desc = "File browser" })
-map("n", "<leader>fp", builtin.oldfiles, { desc = "Recent files (global)" })
+map("n", "<leader>fp", telescope_builtin.oldfiles, { desc = "Recent files (global)" })
+map("n", "<leader>fj", telescope_builtin.lsp_workspace_symbols, { desc = "Spring Boot Finder" })
 
 -- Git
 map("n", "<leader>gr", require("gitsigns").reset_hunk, { desc = "Reset hunk" })
 map("v", "<leader>gr", function()
-	require("gitsigns").reset_hunk({ vim.fn.line("v"), vim.fn.line(".") })
+    require("gitsigns").reset_hunk({ vim.fn.line("v"), vim.fn.line(".") })
 end, { desc = "Reset selected lines" })
-map("n", "<leader>gc", builtin.git_commits, { desc = "Git commits" })
-map("n", "<leader>gb", builtin.git_branches, { desc = "Git branches" })
-map("n", "<leader>gs", builtin.git_status, { desc = "Git status" })
+map("n", "<leader>gc", telescope_builtin.git_commits, { desc = "Git commits" })
+map("n", "<leader>gb", telescope_builtin.git_branches, { desc = "Git branches" })
+map("n", "<leader>gs", telescope_builtin.git_status, { desc = "Git status" })
 
 -- nvim-tree
 map("n", "<leader>e", ":NvimTreeToggle<CR>", { noremap = true, silent = true })
@@ -73,7 +74,7 @@ map("n", "<A->>", "<Cmd>BufferMoveNext<CR>", opts)
 
 -- Go to buffer in position 1-9, or last
 for i = 1, 9 do
-	map("n", "<A-" .. i .. ">", "<Cmd>BufferGoto " .. i .. "<CR>", opts)
+    map("n", "<A-" .. i .. ">", "<Cmd>BufferGoto " .. i .. "<CR>", opts)
 end
 map("n", "<A-0>", "<Cmd>BufferLast<CR>", opts)
 
@@ -102,10 +103,10 @@ map("n", "<Space>bw", "<Cmd>BufferOrderByWindowNumber<CR>", opts)
 -- Terminal
 map("n", "<leader>vt", [[<cmd>vsplit | term<cr>A]], { desc = "Open terminal in vertical split" })
 map(
-	"n",
-	"<leader>ht",
-	[[<cmd>belowright split | resize 12 | term<cr>A]],
-	{ desc = "Open terminal in horizontal split" }
+    "n",
+    "<leader>ht",
+    [[<cmd>belowright split | resize 12 | term<cr>A]],
+    { desc = "Open terminal in horizontal split" }
 )
 map("n", "<leader>t", [[<cmd>belowright split | resize 12 | term<cr>A]], { desc = "Open terminal in horizontal split" })
 map("t", "jk", "<C-\\><C-n>", { desc = "Use jk to enter in terminal normal mode" })
@@ -113,22 +114,22 @@ map("t", "jk", "<C-\\><C-n>", { desc = "Use jk to enter in terminal normal mode"
 -- Debugger
 -- Launch and Reset (using functions)
 map("n", "<F4>", function()
-	vim.fn["vimspector#Continue"]()
+    vim.fn["vimspector#Continue"]()
 end, { noremap = true, silent = true, desc = "Continue Vimspector" })
 map("n", "<F5>", function()
-	vim.fn["vimspector#Launch"]()
+    vim.fn["vimspector#Launch"]()
 end, { noremap = true, silent = true, desc = "Start Vimspector" })
 map("n", "<F6>", function()
-	vim.fn["vimspector#Reset"]()
+    vim.fn["vimspector#Reset"]()
 end, { noremap = true, silent = true, desc = "Restart Vimspector" })
 
 -- Step commands (using <Plug>)
 map("n", "<F7>", "<Plug>VimspectorStepOver", { noremap = false, silent = true, desc = "Step over in Vimspector" })
 map(
-	"n",
-	"<F9>",
-	"<Plug>VimspectorToggleBreakpoint",
-	{ noremap = false, silent = true, desc = "Toggle breakpoint in Vimspector" }
+    "n",
+    "<F9>",
+    "<Plug>VimspectorToggleBreakpoint",
+    { noremap = false, silent = true, desc = "Toggle breakpoint in Vimspector" }
 )
 map("n", "<F10>", "<Plug>VimspectorStepInto", { noremap = false, silent = true, desc = "Step into in Vimspector" })
 map("n", "<F11>", "<Plug>VimspectorStepOut", { noremap = false, silent = true, desc = "Step out in Vimspector" })
@@ -137,6 +138,8 @@ map("n", "<F12>", "<Plug>VimspectorStop", { noremap = false, silent = true, desc
 -- Toggle Vimspector UI
 map("n", "<F14>", "<Plug>VimspectorBalloonEval", { noremap = false, silent = true, desc = "Toggle Vimspector UI" })
 
--- folding
--- map('n', 'zR', require('ufo').openAllFolds)
--- map('n', 'zM', require('ufo').closeAllFolds)
+-- Java
+vim.keymap.set('n', '<leader>j', function()
+  vim.cmd('botright 15split | terminal mvn spring-boot:run')
+end, { desc = "Rodar Spring Boot com Maven" })
+

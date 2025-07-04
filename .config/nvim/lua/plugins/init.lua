@@ -1,168 +1,227 @@
 return {
-	{
-		"nvim-lualine/lualine.nvim",
-		config = function()
-			require("config.lualine")
-		end,
-	},
-	{ "ellisonleao/gruvbox.nvim", priority = 1000, config = true },
+    {
+        "nvim-lualine/lualine.nvim",
+        config = function()
+            require("config.lualine")
+        end,
+    },
+    { "ellisonleao/gruvbox.nvim", priority = 1000, config = true },
 
-	{ "neovim/nvim-lspconfig" },
-	{ "williamboman/mason.nvim", build = ":MasonUpdate" },
-	{ "williamboman/mason-lspconfig.nvim" },
+    {
+        "nvim-java/nvim-java",
+        build = function()
+            require('config.nvim-java')
+        end
+    },
 
-	{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+    { "neovim/nvim-lspconfig" },
 
-	{ "hrsh7th/cmp-nvim-lsp" },
-	{
-		"lukas-reineke/indent-blankline.nvim",
-		config = function()
-			require("config.indent-blankline")
-		end,
-	},
+    {
+        "williamboman/mason.nvim",
+        build = ":MasonUpdate",
+        opts = {
+            registries = {
+                'github:nvim-java/mason-registry',
+                'github:mason-org/mason-registry',
+            },
+        },
+    },
 
-	{ "tmsvg/pear-tree" },
-	{ "quangnguyen30192/cmp-nvim-ultisnips" },
-	{ "SirVer/ultisnips" },
-	{ "honza/vim-snippets" },
+    { "rcarriga/nvim-notify" },
 
-	{ "github/copilot.vim" },
+    { "williamboman/mason-lspconfig.nvim" },
 
-	{
-		"SmiteshP/nvim-navic",
-		dependencies = "neovim/nvim-lspconfig",
-	},
+    { "nvim-treesitter/nvim-treesitter",  build = ":TSUpdate" },
 
-	{
-		"puremourning/vimspector",
-		lazy = false,
-		build = function()
-			vim.cmd([[packadd! vimspector]])
-		end,
-	},
+    { "hrsh7th/cmp-nvim-lsp" },
+    {
+        "lukas-reineke/indent-blankline.nvim",
+        config = function()
+            require("config.indent-blankline")
+        end,
+    },
 
-	{
-		"folke/lazydev.nvim",
-		ft = "lua",
-		opts = {
-			library = {
-				{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
-			},
-		},
-	},
-	{
-		"hrsh7th/nvim-cmp",
-		opts = function(_, opts)
-			opts.sources = opts.sources or {}
-			table.insert(opts.sources, {
-				name = "lazydev",
-				group_index = 0,
-			})
-		end,
-		config = function()
-			require("config.cmp")
-		end,
-	},
-	{ "psliwka/vim-smoothie" },
-	{
-		"dense-analysis/ale",
-		enabled = false,
-		ft = { "python", "lua" },
-		init = function()
-			vim.g.ale_fix_on_save = 0
-			vim.g.ale_linters_explicit = 1
-		end,
-	},
-	{
-		"stevearc/conform.nvim",
-		opts = {},
-		config = function()
-			require("config.conform")
-		end,
-	},
-	{
-		"lewis6991/gitsigns.nvim",
-		config = function()
-			require("config.gitsigns")
-		end,
-	},
-	{
-		"echasnovski/mini.surround",
-		config = function()
-			require("config.mini-surround")
-		end,
-	},
-	{
-		"wfxr/minimap.vim",
-		build = "cargo install --locked code-minimap",
-		config = function()
-			require("config.minimap")
-		end,
-		ft = { "python", "lua", "javascript", "typescript", "html", "css", "markdown" },
-	},
-	{
-		"nvim-telescope/telescope.nvim",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-			"nvim-telescope/telescope-fzf-native.nvim",
-			"nvim-telescope/telescope-file-browser.nvim",
-			"nvim-telescope/telescope-ui-select.nvim",
-		},
-		config = function()
-			require("config.telescope")
-		end,
-	},
-	{
-		"nvim-telescope/telescope-fzf-native.nvim",
-		build = "make",
-		config = function()
-			require("telescope").load_extension("fzf")
-		end,
-	},
-	{
-		"nvim-telescope/telescope-file-browser.nvim",
-		dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
-		config = function()
-			require("telescope").load_extension("file_browser")
+    { "tmsvg/pear-tree" },
+    { "quangnguyen30192/cmp-nvim-ultisnips" },
+    { "SirVer/ultisnips" },
+    { "honza/vim-snippets" },
 
-			vim.keymap.set("n", "<leader>fe", ":Telescope file_browser<CR>", { desc = "File browser (Telescope)" })
-		end,
-	},
-	{
-		"nvim-telescope/telescope-ui-select.nvim",
-		config = function()
-			require("telescope").load_extension("ui-select")
-		end,
-	},
-	{
-		"romgrk/barbar.nvim",
-		dependencies = {
-			"nvim-tree/nvim-web-devicons",
-			"lewis6991/gitsigns.nvim",
-		},
-		init = function()
-			vim.g.barbar_auto_setup = false
-		end,
-		config = function()
-			require("config.barbar")
-		end,
-	},
-	{
-		"nvim-tree/nvim-tree.lua",
-		version = "*",
-		lazy = false,
-		dependencies = {
-			"nvim-tree/nvim-web-devicons",
-		},
-		config = function()
-			require("config.nvim-tree")
-		end,
-	},
-	{
-		"kevinhwang91/nvim-ufo",
-		enabled = false,
-		dependencies = {
-			"kevinhwang91/promise-async",
-		},
-	},
+    { "github/copilot.vim" },
+
+    {
+        "SmiteshP/nvim-navic",
+        dependencies = "neovim/nvim-lspconfig",
+    },
+
+    {
+        "puremourning/vimspector",
+        lazy = false,
+        build = function()
+            vim.cmd([[packadd! vimspector]])
+        end,
+    },
+
+    {
+        "folke/lazydev.nvim",
+        ft = "lua",
+        opts = {
+            library = {
+                { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+            },
+        },
+    },
+    {
+        "hrsh7th/nvim-cmp",
+        event = { "InsertEnter", "CmdlineEnter" },
+        opts = function(_, opts)
+            opts.sources = opts.sources or {}
+            table.insert(opts.sources, {
+                name = "lazydev",
+                group_index = 0,
+            })
+        end,
+        config = function()
+            require("config.cmp")
+        end,
+    },
+    { "psliwka/vim-smoothie" },
+    {
+        "dense-analysis/ale",
+        enabled = false,
+        ft = { "python", "lua" },
+        init = function()
+            vim.g.ale_fix_on_save = 0
+            vim.g.ale_linters_explicit = 1
+        end,
+    },
+    {
+        "stevearc/conform.nvim",
+        opts = {},
+        config = function()
+            require("config.conform")
+        end,
+    },
+    {
+        "lewis6991/gitsigns.nvim",
+        config = function()
+            require("config.gitsigns")
+        end,
+    },
+    {
+        "echasnovski/mini.surround",
+        config = function()
+            require("config.mini-surround")
+        end,
+    },
+    {
+        "wfxr/minimap.vim",
+        enabled = false,
+        build = "cargo install --locked code-minimap",
+        config = function()
+            require("config.minimap")
+        end,
+        ft = { "python", "lua", "javascript", "typescript", "html", "css", "markdown" },
+    },
+    {
+        "nvim-telescope/telescope.nvim",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "nvim-telescope/telescope-fzf-native.nvim",
+            "nvim-telescope/telescope-file-browser.nvim",
+            "nvim-telescope/telescope-ui-select.nvim",
+        },
+        config = function()
+            require("config.telescope")
+        end,
+    },
+    {
+        "nvim-telescope/telescope-fzf-native.nvim",
+        build = "make",
+        config = function()
+            require("telescope").load_extension("fzf")
+        end,
+    },
+    {
+        "nvim-telescope/telescope-file-browser.nvim",
+        dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
+        config = function()
+            require("telescope").load_extension("file_browser")
+
+            vim.keymap.set("n", "<leader>fe", ":Telescope file_browser<CR>", { desc = "File browser (Telescope)" })
+        end,
+    },
+    {
+        "nvim-telescope/telescope-ui-select.nvim",
+        config = function()
+            require("telescope").load_extension("ui-select")
+        end,
+    },
+    {
+        "romgrk/barbar.nvim",
+        dependencies = {
+            "nvim-tree/nvim-web-devicons",
+            "lewis6991/gitsigns.nvim",
+        },
+        init = function()
+            vim.g.barbar_auto_setup = false
+        end,
+        config = function()
+            require("config.barbar")
+        end,
+    },
+    {
+        "nvim-tree/nvim-tree.lua",
+        version = "*",
+        lazy = false,
+        dependencies = {
+            "nvim-tree/nvim-web-devicons",
+        },
+        config = function()
+            require("config.nvim-tree")
+        end,
+    },
+    {
+        "kevinhwang91/nvim-ufo",
+        enabled = false,
+        dependencies = {
+            "kevinhwang91/promise-async",
+        },
+    },
+    {
+        "Jezda1337/nvim-html-css",
+        dependencies = { "hrsh7th/nvim-cmp", "nvim-treesitter/nvim-treesitter" },
+        opts = {
+            enable_on = {
+                "html",
+                "htmldjango",
+                "tsx",
+                "jsx",
+                "erb",
+                "svelte",
+                "vue",
+                "blade",
+                "php",
+                "templ",
+                "astro",
+            },
+            handlers = {
+                definition = {
+                    bind = "gd"
+                },
+                hover = {
+                    bind = "K",
+                    wrap = true,
+                    border = "none",
+                    position = "cursor",
+                },
+            },
+            documentation = {
+                auto_show = true,
+            },
+            style_sheets = {
+                "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css",
+                "./index.css", -- `./` refers to the current working directory.
+            },
+        },
+    }
 }
