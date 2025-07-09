@@ -1,0 +1,17 @@
+[user]
+	name = reszkojr
+	email = s.reszkojr@gmail.com
+[init]
+	defaultBranch = main
+[pull]
+	ff = false
+[safe]
+	directory = /home/fabiojr/.clones/build
+	directory = /home/fabiojr/.clones/build/cache/git-bare/kernel
+	directory = /home/fabiojr/.clones/build/cache/sources/linux-kernel-worktree/6.6__rockchip__armhf
+[color]
+	ui = auto
+[url "https://invent.kde.org/"]
+	insteadOf = kde:
+[url "ssh://git@invent.kde.org/"]
+	pushInsteadOf = kde:
