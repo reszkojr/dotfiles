@@ -76,3 +76,35 @@ esac
 # pnpm end
 
 eval `ssh-agent` > /dev/null
+
+# old zshrc
+export NVM_BIN=$HOME/.nvm/versions/node/v22.11.0/bin
+export NVM_CD_FLAGS=-q
+export NVM_DIR=$HOME/.nvm
+export NVM_INC=$HOME/.nvm/versions/node/v22.11.0/include/node
+
+export OLDPWD=$HOME/.dotfiles
+
+export PNPM_HOME=$HOME/.local/share/pnpm
+
+export PYENV_ROOT=$HOME/.pyenv
+export PYENV_SHELL=zsh
+
+export QT_IM_MODULE=cedilla
+
+export ZSH="$HOME/.oh-my-zsh"
+ZSH_THEME="robbyrussell"
+
+plugins=(git)
+
+source $ZSH/oh-my-zsh.sh
+
+alias erp='cd $HOME/Documentos/Cavok/erp'
+alias sys='cd $HOME/Documentos/Cavok/sys2'
+
+alias parui='/usr/bin/paru -S --noconfirm'
+alias pmi='sudo pacman -S --noconfirm'
+alias pmr='sudo pacman -R --noconfirm'
+
+alias sql_server_local='PGPASSWORD=admin psql -U postgres -h 127.0.0.1 -c'
+alias sql_server_teste='PGPASSWORD=admin psql -U postgres -h 192.168.18.29 -c'
