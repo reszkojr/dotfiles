@@ -31,7 +31,13 @@ cmp.setup({
     mapping = cmp.mapping.preset.insert {
         ['<Tab>'] = function(fallback)
             if cmp.visible() then
-                cmp.select_next_item()
+                local copilot_suggestion = vim.fn["copilot#GetDisplayedSuggestion"]()
+
+                if copilot_suggestion.text ~= "" then
+                    vim.api.nvim_feedkeys(vim.fn["copilot#Accept"](), "i", true)
+                else
+                    cmp.select_next_item()
+                end
             elseif luasnip.expand_or_jumpable() then
                 luasnip.expand_or_jump()
             else

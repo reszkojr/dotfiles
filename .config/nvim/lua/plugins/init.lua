@@ -226,8 +226,14 @@ return {
         "mattn/emmet-vim",
         ft = { "html", "css", "javascriptreact", "typescriptreact" },
         init = function()
-            vim.g.user_emmet_leader_key = "<C-y>"
+            require("config.emmet")
         end,
+    },
+    {
+        'norcalli/nvim-colorizer.lua',
+        init = function()
+            require("config.colorizer")
+        end
     }
 
 }

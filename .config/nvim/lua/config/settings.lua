@@ -7,6 +7,7 @@ vim.opt.smartindent = true
 vim.opt.termguicolors = true
 vim.opt.wrap = false
 vim.opt.foldenable = false
+vim.opt.termguicolors = true
 
 vim.g.mapleader = " "
 
